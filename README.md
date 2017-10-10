@@ -19,7 +19,7 @@ const db = await MongoClient.connect('mongo-url');
 await moveDocs({
     fromCollection: db.collection('coll-a'),
     toCollection: db.collection('coll-b'),
-    transformer: async (doc) => {
+    transformerFn: async (doc) => {
         doc.movedAt = new Date();
         return doc;
     },
