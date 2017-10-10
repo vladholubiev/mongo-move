@@ -8,3 +8,4 @@ node_modules/
 *.draft.js
 draft.js
 *.sh
+.DS_Store
