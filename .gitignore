@@ -1,0 +1,10 @@
+.idea/
+.serverless/
+coverage/
+lib/
+node_modules/
+
+*.log
+*.draft.js
+draft.js
+*.sh

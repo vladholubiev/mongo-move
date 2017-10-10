@@ -1,0 +1,14 @@
+{
+  "name": "mongo-move",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "jest"
+  },
+  "files": [
+    "lib/"
+  ],
+  "author": "Vlad Holubiev",
+  "license": "UNLICENSED"
+}
