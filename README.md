@@ -1,0 +1,33 @@
+# Mongo Move
+
+> Move documents between MongoDB collection. Applying async transforms, optionally.
+
+## Install
+
+```sh
+$ yarn add mongo-move
+```
+
+## Usage
+
+```js
+import {MongoClient} from 'mongodb';
+import {moveDocs} from 'mongo-move';
+
+const db = await MongoClient.connect('mongo-url');
+
+const movePromise = moveDocs({
+    fromCollection: db.collection('coll-a'),
+    toCollection: db.collection('coll-b'),
+    transformer: async (doc) => {
+        doc.movedAt = new Date();
+        return doc;
+    },
+    chunkSize: 1000
+});
+
+// You can track progress as well!
+movePromise.onProgress(console.log);
+
+await movePromise;
+```
