@@ -10,6 +10,7 @@ beforeAll(async() => {
 it('should move chinese restaurants to own collection', async() => {
   const restaurants = db.collection('restaurants');
   const restaurantsChinese = db.collection('restaurants_chinese');
+  await restaurantsChinese.removeMany({});
 
   const countBefore = await restaurants.find({}).count();
   expect(countBefore).toEqual(25359);
