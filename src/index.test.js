@@ -1,4 +1,4 @@
-import {moveDocs} from '../lib';
+import {moveDocs} from '.';
 import {MongoClient} from 'mongodb';
 
 let db;
