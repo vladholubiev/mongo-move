@@ -16,7 +16,7 @@ import {moveDocs} from 'mongo-move';
 
 const db = await MongoClient.connect('mongo-url');
 
-const movePromise = moveDocs({
+await moveDocs({
     fromCollection: db.collection('coll-a'),
     toCollection: db.collection('coll-b'),
     transformer: async (doc) => {
@@ -25,9 +25,4 @@ const movePromise = moveDocs({
     },
     chunkSize: 1000
 });
-
-// You can track progress as well!
-movePromise.onProgress(console.log);
-
-await movePromise;
 ```
