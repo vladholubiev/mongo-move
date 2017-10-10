@@ -1,0 +1,1 @@
+import {moveDocs} from '../lib';

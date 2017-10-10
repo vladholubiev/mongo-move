@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "pretest": "docker-compose up --build -d",
+    "test": "MONGO_URL=mongodb://localhost:37017/test ../../node_modules/.bin/jest",
+    "posttest": "docker-compose stop"
+  }
+}
