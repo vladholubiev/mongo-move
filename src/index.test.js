@@ -12,7 +12,7 @@ it('should move chinese restaurants to own collection', async() => {
   const restaurantsChinese = db.collection('restaurants_chinese');
 
   const countBefore = await restaurants.find({}).count();
-  console.log('countBefore', countBefore);
+  expect(countBefore).toEqual(25359);
 
   await moveDocs({
     fromCollection: restaurants,
@@ -26,8 +26,11 @@ it('should move chinese restaurants to own collection', async() => {
   });
 
   const countAfter = await restaurants.find({}).count();
-  console.log('countAfter', countAfter);
+  expect(countAfter).toEqual(22941);
 
   const countMoved = await restaurantsChinese.find({}).count();
-  console.log('countMoved', countMoved);
+  expect(countMoved).toEqual(2418);
+
+  const countWithNewProp = await restaurantsChinese.find({movedAt: {$exists: true}}).count();
+  expect(countWithNewProp).toEqual(2418);
 });
