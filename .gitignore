@@ -9,3 +9,4 @@ node_modules/
 draft.js
 *.sh
 .DS_Store
+yarn.lock
