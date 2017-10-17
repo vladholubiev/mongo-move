@@ -1,4 +1,4 @@
-export default async function({fromCollection, toCollection, selector = {}, projection, transformerFn = (d) => d, chunkSize = 1000}) {
+export default async function({fromCollection, toCollection, selector = {}, projection = {}, transformerFn = (d) => d, chunkSize = 1000}) {
   let fromCollectionBulk = fromCollection.initializeUnorderedBulkOp();
   let toCollectionBulk = toCollection.initializeUnorderedBulkOp();
 
