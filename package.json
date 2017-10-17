@@ -8,6 +8,7 @@
     "lint": "eslint src --fix --format=node_modules/eslint-formatter-pretty",
     "pretest": "docker-compose up --build -d",
     "test": "MONGO_URL=mongodb://localhost:37017/test jest --forceExit",
+    "prepublish": "yarn build",
     "posttest": "docker-compose stop"
   },
   "files": [
