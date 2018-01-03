@@ -8,7 +8,14 @@
  * @param {Function} [options.transformerFn] Function to apply transformations over documents before moving
  * @param {Number} [options.chunkSize=1000] Bulk operation chunk size to split move
  */
-export default async function({fromCollection, toCollection, selector = {}, projection = {}, transformerFn = (d) => d, chunkSize = 1000}) {
+export default async function({
+  fromCollection,
+  toCollection,
+  selector = {},
+  projection = {},
+  transformerFn = d => d,
+  chunkSize = 1000
+}) {
   let fromCollectionBulk = fromCollection.initializeUnorderedBulkOp();
   let toCollectionBulk = toCollection.initializeUnorderedBulkOp();
 

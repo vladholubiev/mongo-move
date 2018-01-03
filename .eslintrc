@@ -1,21 +1,24 @@
 {
   "root": true,
-  "extends": "google",
+  "extends": [
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
   "env": {
     "node": true,
     "jest": true,
     "es6": true
   },
   "parserOptions": {
-    "ecmaVersion": 2017
-  },
-  "globals": {
-    "emit": true
-  },
-  "rules": {
-    "max-len": [
-      1,
-      100
-    ]
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   }
 }

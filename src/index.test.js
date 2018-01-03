@@ -8,7 +8,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000;
 let db;
 let mongoServer;
 
-beforeAll(async() => {
+beforeAll(async () => {
   mongoServer = new MongodbMemoryServer();
   const mongoUri = await mongoServer.getConnectionString();
   db = await MongoClient.connect(mongoUri);
@@ -27,7 +27,7 @@ afterAll(() => {
   mongoServer.stop();
 });
 
-it('should move chinese restaurants to own collection', async() => {
+it('should move chinese restaurants to own collection', async () => {
   const restaurants = db.collection('restaurants');
   const restaurantsChinese = db.collection('restaurants_chinese');
   await restaurantsChinese.removeMany({});
@@ -39,7 +39,7 @@ it('should move chinese restaurants to own collection', async() => {
     fromCollection: restaurants,
     toCollection: restaurantsChinese,
     selector: {cuisine: 'Chinese'},
-    transformerFn: async(doc) => {
+    transformerFn: async doc => {
       doc.movedAt = new Date();
       return doc;
     },
