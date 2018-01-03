@@ -1,10 +1,30 @@
-import {moveDocs} from '.';
+import MongodbMemoryServer from 'mongodb-memory-server';
 import {MongoClient} from 'mongodb';
+import {moveDocs} from '.';
+
+// May require additional time for downloading MongoDB binaries
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000;
 
 let db;
+let mongoServer;
 
 beforeAll(async() => {
-  db = await MongoClient.connect('mongodb://localhost:37017/test');
+  mongoServer = new MongodbMemoryServer();
+  const mongoUri = await mongoServer.getConnectionString();
+  db = await MongoClient.connect(mongoUri);
+
+  const restaurants = db.collection('restaurants');
+
+  await restaurants.insertMany([
+    {cuisine: 'Chinese', name: 'May May Kitchen'},
+    {cuisine: 'American', name: 'KFC'},
+    {cuisine: 'Chinese', name: 'Ho Mei Restaurant'},
+    {cuisine: 'Italian', name: 'Philadelhia Grille Express'}
+  ]);
+});
+
+afterAll(() => {
+  mongoServer.stop();
 });
 
 it('should move chinese restaurants to own collection', async() => {
@@ -13,7 +33,7 @@ it('should move chinese restaurants to own collection', async() => {
   await restaurantsChinese.removeMany({});
 
   const countBefore = await restaurants.find({}).count();
-  expect(countBefore).toEqual(25359);
+  expect(countBefore).toEqual(4);
 
   await moveDocs({
     fromCollection: restaurants,
@@ -27,11 +47,11 @@ it('should move chinese restaurants to own collection', async() => {
   });
 
   const countAfter = await restaurants.find({}).count();
-  expect(countAfter).toEqual(22941);
+  expect(countAfter).toEqual(2);
 
   const countMoved = await restaurantsChinese.find({}).count();
-  expect(countMoved).toEqual(2418);
+  expect(countMoved).toEqual(2);
 
   const countWithNewProp = await restaurantsChinese.find({movedAt: {$exists: true}}).count();
-  expect(countWithNewProp).toEqual(2418);
+  expect(countWithNewProp).toEqual(2);
 });
