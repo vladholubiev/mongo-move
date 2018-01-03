@@ -11,7 +11,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
 
       - run: yarn install
@@ -20,6 +20,6 @@ jobs:
           paths:
             - node_modules
             - $HOME/.mongodb-binaries
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
