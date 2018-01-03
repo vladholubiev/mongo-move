@@ -34,3 +34,7 @@ await moveDocs({
 ```sh
 $ npm t
 ```
+
+## License
+
+MIT © [Vlad Holubiev](https://vladholubiev.com)
