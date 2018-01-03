@@ -1,4 +1,4 @@
-# Mongo Move
+# Mongo Move [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/mongo-move.svg)](https://circleci.com/gh/vladgolubev/mongo-move)
 
 > Move documents between MongoDB collection. Applying async transforms, optionally.
 
