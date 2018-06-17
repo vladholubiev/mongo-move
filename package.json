@@ -2,13 +2,13 @@
   "name": "mongo-move",
   "version": "3.0.0",
   "description": "",
-  "main": "lib",
+  "main": "src",
   "scripts": {
     "lint": "eslint . --fix",
     "test": "jest --forceExit --runInBand"
   },
   "files": [
-    "lib/"
+    "src/"
   ],
   "engines": {
     "node": ">=8.10"
