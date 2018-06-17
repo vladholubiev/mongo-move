@@ -8,7 +8,7 @@
  * @param {Function} [options.transformerFn] Function to apply transformations over documents before moving
  * @param {Number} [options.chunkSize=1000] Bulk operation chunk size to split move
  */
-export default async function({
+module.exports = async function({
   fromCollection,
   toCollection,
   selector = {},
@@ -40,7 +40,7 @@ export default async function({
   }
 
   await runBulk(fromCollectionBulk, toCollectionBulk);
-}
+};
 
 async function runBulk(fromCollectionBulk, toCollectionBulk) {
   if (fromCollectionBulk.length) {

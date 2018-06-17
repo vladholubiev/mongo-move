@@ -1,4 +1,4 @@
-import moveDocs from './move-docs';
+const moveDocs = require('./move-docs');
 
 module.exports = {
   moveDocs

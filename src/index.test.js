@@ -1,6 +1,6 @@
-import MongodbMemoryServer from 'mongodb-memory-server';
-import {MongoClient} from 'mongodb';
-import {moveDocs} from '.';
+const MongodbMemoryServer = require('mongodb-memory-server').default;
+const {MongoClient} = require('mongodb');
+const {moveDocs} = require('.');
 
 // May require additional time for downloading MongoDB binaries
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000;

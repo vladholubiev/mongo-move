@@ -4,37 +4,25 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "build": "babel src --out-dir lib --ignore test.js,__mocks__ --copy-files",
     "lint": "eslint . --fix",
-    "test": "jest --forceExit --runInBand",
-    "prepublish": "yarn build"
+    "test": "jest --forceExit --runInBand"
   },
   "files": [
     "lib/"
   ],
   "engines": {
-    "node": ">=4.x.x"
+    "node": ">=8.10"
   },
   "author": "Vlad Holubiev",
   "license": "UNLICENSED",
-  "peerDependencies": {
-    "babel-runtime": "6.x.x"
-  },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^21.2.0",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
     "eslint": "^4.14.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.4.0",
     "jest": "^21.2.1",
     "mongodb": "^2.2.33",
     "mongodb-memory-server": "^1.6.3",
-    "prettier": "^1.9.2",
-    "request": "^2.83.0"
+    "prettier": "^1.9.2"
   },
   "jest": {
     "testEnvironment": "node"
