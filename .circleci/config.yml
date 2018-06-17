@@ -18,7 +18,6 @@ jobs:
 
       - save_cache:
           paths:
-            - node_modules
             - $HOME/.mongodb-binaries
           key: v1-dependencies-{{ checksum "package.json" }}
 
