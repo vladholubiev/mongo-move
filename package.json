@@ -16,13 +16,13 @@
   "author": "Vlad Holubiev",
   "license": "UNLICENSED",
   "devDependencies": {
-    "eslint": "^4.14.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.4.0",
-    "jest": "^23.1.0",
-    "mongodb": "^2.2.33",
-    "mongodb-memory-server": "^1.6.3",
-    "prettier": "^1.9.2"
+    "eslint": "4.19.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "jest": "23.4.1",
+    "mongodb": "2.2.36",
+    "mongodb-memory-server": "1.9.0",
+    "prettier": "1.13.7"
   },
   "jest": {
     "testEnvironment": "node"
