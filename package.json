@@ -22,7 +22,7 @@
     "jest": "23.4.2",
     "mongodb": "2.2.36",
     "mongodb-memory-server": "1.9.3",
-    "prettier": "1.14.0"
+    "prettier": "1.14.1"
   },
   "jest": {
     "testEnvironment": "node"
