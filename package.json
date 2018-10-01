@@ -21,7 +21,7 @@
     "eslint-plugin-prettier": "3.0.0",
     "jest": "23.5.0",
     "mongodb": "2.2.36",
-    "mongodb-memory-server": "2.4.0",
+    "mongodb-memory-server": "2.4.1",
     "prettier": "1.14.3"
   },
   "jest": {
