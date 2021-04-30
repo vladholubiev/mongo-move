@@ -26,7 +26,7 @@ export default async function ({
   projection = {},
   transformerFn,
   chunkSize = 1000,
-}: Params) {
+}: Params): Promise<void> {
   if (!transformerFn) {
     transformerFn = (doc: any) => doc;
   }
@@ -60,12 +60,12 @@ export default async function ({
 async function runBulk(
   fromCollectionBulk: UnorderedBulkOperation,
   toCollectionBulk: UnorderedBulkOperation
-) {
-  if (fromCollectionBulk.length) {
-    await fromCollectionBulk.execute();
-  }
-
+): Promise<void> {
   if (toCollectionBulk.length) {
     await toCollectionBulk.execute();
+  }
+
+  if (fromCollectionBulk.length) {
+    await fromCollectionBulk.execute();
   }
 }
