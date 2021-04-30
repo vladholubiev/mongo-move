@@ -17,22 +17,25 @@ import {moveDocs} from 'mongo-move';
 const db = await MongoClient.connect('mongo-url');
 
 await moveDocs({
-    fromCollection: db.collection('coll-a'),
-    toCollection: db.collection('coll-b'),
-    selector: {userId: 'some-user-id'},
-    projection: {name: 0},
-    transformerFn: async (doc) => {
-        doc.movedAt = new Date();
-        return doc;
-    },
-    chunkSize: 1000
+  fromCollection: db.collection('coll-a'),
+  toCollection: db.collection('coll-b'),
+  selector: {userId: 'some-user-id'},
+  projection: {name: 0},
+  transformerFn: async doc => {
+    doc.movedAt = new Date();
+    return doc;
+  },
+  chunkSize: 1000,
 });
 ```
 
-## Run tests
+## Publish
 
 ```sh
-$ npm t
+$ git checkout master
+$ yarn version
+$ yarn publish
+$ git push origin master --tags
 ```
 
 ## License
