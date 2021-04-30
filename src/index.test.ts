@@ -1,17 +1,10 @@
-const MongodbMemoryServer = require('mongodb-memory-server').default;
-const {MongoClient} = require('mongodb');
-const {moveDocs} = require('.');
-
-// May require additional time for downloading MongoDB binaries
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000;
+import {MongoClient} from 'mongodb';
+import moveDocs from './move-docs';
 
 let db;
-let mongoServer;
 
 beforeAll(async () => {
-  mongoServer = new MongodbMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
-  db = await MongoClient.connect(mongoUri);
+  db = (await MongoClient.connect(process.env.MONGO_URL)).db();
 
   const restaurants = db.collection('restaurants');
 
@@ -19,12 +12,8 @@ beforeAll(async () => {
     {cuisine: 'Chinese', name: 'May May Kitchen'},
     {cuisine: 'American', name: 'KFC'},
     {cuisine: 'Chinese', name: 'Ho Mei Restaurant'},
-    {cuisine: 'Italian', name: 'Philadelhia Grille Express'}
+    {cuisine: 'Italian', name: 'Philadelhia Grille Express'},
   ]);
-});
-
-afterAll(() => {
-  mongoServer.stop();
 });
 
 it('should move chinese restaurants to own collection', async () => {
@@ -33,6 +22,7 @@ it('should move chinese restaurants to own collection', async () => {
   await restaurantsChinese.removeMany({});
 
   const countBefore = await restaurants.find({}).count();
+
   expect(countBefore).toEqual(4);
 
   await moveDocs({
@@ -41,17 +31,21 @@ it('should move chinese restaurants to own collection', async () => {
     selector: {cuisine: 'Chinese'},
     transformerFn: async doc => {
       doc.movedAt = new Date();
+
       return doc;
     },
-    chunkSize: 1000
+    chunkSize: 1000,
   });
 
   const countAfter = await restaurants.find({}).count();
+
   expect(countAfter).toEqual(2);
 
   const countMoved = await restaurantsChinese.find({}).count();
+
   expect(countMoved).toEqual(2);
 
   const countWithNewProp = await restaurantsChinese.find({movedAt: {$exists: true}}).count();
+
   expect(countWithNewProp).toEqual(2);
 });

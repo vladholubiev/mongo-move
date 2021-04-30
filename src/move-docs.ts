@@ -1,3 +1,14 @@
+import type {Collection, FilterQuery, UnorderedBulkOperation} from 'mongodb';
+
+interface Params {
+  fromCollection: Collection;
+  toCollection: Collection;
+  selector?: FilterQuery<any>;
+  projection?: Partial<Record<keyof any, 1 | 0>>;
+  transformerFn?: (doc: any) => any;
+  chunkSize?: number;
+}
+
 /**
  * Move documents from one to another mongo collection
  * @param {Object} options Options to define the move
@@ -8,14 +19,18 @@
  * @param {Function} [options.transformerFn] Function to apply transformations over documents before moving
  * @param {Number} [options.chunkSize=1000] Bulk operation chunk size to split move
  */
-module.exports = async function({
+export default async function ({
   fromCollection,
   toCollection,
   selector = {},
   projection = {},
-  transformerFn = d => d,
-  chunkSize = 1000
-}) {
+  transformerFn,
+  chunkSize = 1000,
+}: Params) {
+  if (!transformerFn) {
+    transformerFn = (doc: any) => doc;
+  }
+
   let fromCollectionBulk = fromCollection.initializeUnorderedBulkOp();
   let toCollectionBulk = toCollection.initializeUnorderedBulkOp();
 
@@ -40,9 +55,12 @@ module.exports = async function({
   }
 
   await runBulk(fromCollectionBulk, toCollectionBulk);
-};
+}
 
-async function runBulk(fromCollectionBulk, toCollectionBulk) {
+async function runBulk(
+  fromCollectionBulk: UnorderedBulkOperation,
+  toCollectionBulk: UnorderedBulkOperation
+) {
   if (fromCollectionBulk.length) {
     await fromCollectionBulk.execute();
   }
