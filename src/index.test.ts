@@ -1,10 +1,10 @@
-import {MongoClient} from 'mongodb';
+import {Db, MongoClient} from 'mongodb';
 import moveDocs from './move-docs';
 
-let db;
+let db: Db;
 
 beforeAll(async () => {
-  db = (await MongoClient.connect(process.env.MONGO_URL)).db();
+  db = (await MongoClient.connect(process.env.MONGO_URL as any)).db();
 
   const restaurants = db.collection('restaurants');
 
@@ -19,7 +19,7 @@ beforeAll(async () => {
 it('should move chinese restaurants to own collection', async () => {
   const restaurants = db.collection('restaurants');
   const restaurantsChinese = db.collection('restaurants_chinese');
-  await restaurantsChinese.removeMany({});
+  await restaurantsChinese.deleteOne({});
 
   const countBefore = await restaurants.find({}).count();
 
