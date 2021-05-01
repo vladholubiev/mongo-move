@@ -1,5 +1,5 @@
 import {Db, MongoClient} from 'mongodb';
-import moveDocs from './move-docs';
+import {moveDocs} from './';
 
 let db: Db;
 
