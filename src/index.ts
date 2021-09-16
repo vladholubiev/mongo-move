@@ -44,7 +44,7 @@ export async function moveDocs({
     const transformedDocToMove = await transformerFn(docToMove);
 
     toCollectionBulk.insert(transformedDocToMove);
-    fromCollectionBulk.find({_id: docToMove._id}).removeOne();
+    fromCollectionBulk.find({_id: docToMove._id}).deleteOne();
 
     if (chunkProgress % chunkSize === 0) {
       await runBulk(fromCollectionBulk, toCollectionBulk);
